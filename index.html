@@ -2,8 +2,8 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Читай-Питомец</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Читай-Питомец · быстрый тест</title>
 <style>
   :root {
     --bg: #f5efe4;
@@ -26,28 +26,19 @@
     --shadow-strong: rgba(120, 90, 50, 0.22);
   }
 
-  .disclaimer {
-    font-size: 10px;
-    color: #a89a85;
-    text-align: center;
-    line-height: 1.45;
-    padding: 8px 6px 0;
-    margin-top: 4px;
-  }
-
   * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; }
   body {
     background: #2a2520;
     display: flex; justify-content: center; align-items: center;
     min-height: 100vh;
-    min-height: 100dvh; /* реальная высота с учётом адресной строки */
+    min-height: 100dvh;
     padding: 12px;
     overflow: hidden;
   }
   .phone {
     max-width: 420px; width: 100%;
     height: 820px;
-    height: min(820px, calc(100dvh - 24px)); /* не выше реального экрана */
+    height: min(820px, calc(100dvh - 24px));
     max-height: calc(100dvh - 24px);
     background: var(--bg);
     border-radius: 36px;
@@ -61,7 +52,7 @@
 
   .screen {
     flex: 1 1 auto;
-    min-height: 0; /* критично: без этого flex-элемент не сжимается */
+    min-height: 0;
     overflow-y: auto;
     padding: 18px;
     display: none; flex-direction: column;
@@ -85,6 +76,73 @@
     0% { transform: scale(1); }
     50% { transform: scale(1.22); }
     100% { transform: scale(1); }
+  }
+
+  /* ===== ПЕРЕКЛЮЧАТЕЛЬ БЫСТРОГО ТЕСТА ===== */
+  .fast-toggle-wrap {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 3px 0 rgba(180, 140, 80, 0.15);
+    transition: background 0.3s ease;
+  }
+  .fast-toggle-wrap.on {
+    background: #fff2d0;
+    box-shadow: 0 3px 0 rgba(229, 179, 75, 0.4);
+  }
+  .fast-toggle-label {
+    display: flex; flex-direction: column; gap: 2px;
+  }
+  .fast-toggle-title {
+    font-size: 14px; font-weight: 800; color: var(--text);
+    display: flex; align-items: center; gap: 6px;
+  }
+  .fast-toggle-sub {
+    font-size: 11px; color: var(--text-soft); font-weight: 500;
+  }
+  .switch {
+    position: relative;
+    width: 48px; height: 28px;
+    flex-shrink: 0;
+  }
+  .switch input {
+    opacity: 0; width: 0; height: 0;
+  }
+  .switch .slider {
+    position: absolute; cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: #cbbfa8;
+    border-radius: 28px;
+    transition: 0.3s;
+  }
+  .switch .slider::before {
+    content: '';
+    position: absolute;
+    width: 22px; height: 22px;
+    left: 3px; bottom: 3px;
+    background: #fffaf0;
+    border-radius: 50%;
+    transition: 0.3s;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  }
+  .switch input:checked + .slider {
+    background: var(--accent);
+  }
+  .switch input:checked + .slider::before {
+    transform: translateX(20px);
+  }
+
+  .disclaimer {
+    font-size: 10px;
+    color: #a89a85;
+    text-align: center;
+    line-height: 1.45;
+    padding: 8px 6px 0;
+    margin-top: 4px;
   }
 
   .pet-area {
@@ -153,66 +211,6 @@
     height: 180px;
     transform: translateZ(0);
   }
-
-  /* ===== ПЕРЕКЛЮЧАТЕЛЬ БЫСТРОГО ТЕСТА ===== */
-  .fast-toggle-wrap {
-    background: var(--card);
-    border-radius: 20px;
-    padding: 12px 16px;
-    margin-bottom: 12px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 3px 0 rgba(180, 140, 80, 0.15);
-    transition: background 0.3s ease;
-  }
-  .fast-toggle-wrap.on {
-    background: #fff2d0;
-    box-shadow: 0 3px 0 rgba(229, 179, 75, 0.4);
-  }
-  .fast-toggle-label {
-    display: flex; flex-direction: column; gap: 2px;
-  }
-  .fast-toggle-title {
-    font-size: 14px; font-weight: 800; color: var(--text);
-    display: flex; align-items: center; gap: 6px;
-  }
-  .fast-toggle-sub {
-    font-size: 11px; color: var(--text-soft); font-weight: 500;
-  }
-  .switch {
-    position: relative;
-    width: 48px; height: 28px;
-    flex-shrink: 0;
-  }
-  .switch input {
-    opacity: 0; width: 0; height: 0;
-  }
-  .switch .slider {
-    position: absolute; cursor: pointer;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background: #cbbfa8;
-    border-radius: 28px;
-    transition: 0.3s;
-  }
-  .switch .slider::before {
-    content: '';
-    position: absolute;
-    width: 22px; height: 22px;
-    left: 3px; bottom: 3px;
-    background: #fffaf0;
-    border-radius: 50%;
-    transition: 0.3s;
-    box-shadow: 0 1px 3px rgba(0,0,0,0.2);
-  }
-  .switch input:checked + .slider {
-    background: var(--accent);
-  }
-  .switch input:checked + .slider::before {
-    transform: translateX(20px);
-  }
-
-  /* состояния питомца */
   .cat.sad .cat-mouth {
     border-top: 2px solid #2c2a24;
     border-bottom: none;
@@ -231,6 +229,7 @@
   .cat.dead .cat-tail,
   .cat.dead .cat-body,
   .cat.dead .cat-eye { animation: none; }
+
   .cat-tail {
     position: absolute;
     width: 20px;
@@ -447,7 +446,6 @@
   .cat-paw.left { left: 28px; }
   .cat-paw.right { right: 28px; }
 
-  /* скины */
   .skin-sunset .cat-body,
   .skin-sunset .cat-head,
   .skin-sunset .cat-ear,
@@ -617,9 +615,6 @@
     transition: width 1.2s cubic-bezier(0.4, 0, 0.2, 1), background 0.4s ease;
     box-shadow: 0 0 6px rgba(229, 179, 75, 0.5);
   }
-  .fast-mode .stat-bar {
-    transition: width 0.3s ease, background 0.4s ease;
-  }
   .stat-item.low .stat-bar {
     background: linear-gradient(90deg, var(--danger), var(--danger-soft));
     box-shadow: 0 0 6px rgba(217, 122, 108, 0.6);
@@ -723,10 +718,10 @@
   .nav-item:active { transform: scale(0.92); }
   .nav-emoji { font-size: 22px; }
 
-  /* таймер */
+  /* ===== ТАЙМЕР ===== */
   .timer-container {
     background: linear-gradient(180deg, #3a3228, #4a4033);
-    border-radius: 60px; padding: 32px 20px;
+    border-radius: 60px; padding: 24px 20px 20px;
     display: flex; flex-direction: column; align-items: center;
     color: #fff6df; margin-bottom: 20px;
     position: relative; overflow: hidden;
@@ -745,22 +740,100 @@
     0%, 100% { opacity: 0.4; }
     50% { opacity: 1; }
   }
+
+  .timer-ring-wrap {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+  }
+  .timer-ring {
+    position: absolute;
+    inset: 0;
+    transform: rotate(-90deg);
+    pointer-events: none;
+  }
+  .timer-ring-bg {
+    fill: none;
+    stroke: rgba(255, 246, 223, 0.12);
+    stroke-width: 10;
+  }
+  .timer-ring-fill {
+    fill: none;
+    stroke: url(#timerGrad);
+    stroke-width: 10;
+    stroke-linecap: round;
+    transition: stroke-dashoffset 0.5s linear;
+    filter: drop-shadow(0 0 6px rgba(240, 194, 80, 0.5));
+  }
+  .timer-display-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 2;
+  }
   .timer-display {
-    font-size: 60px; font-weight: 800;
-    font-variant-numeric: tabular-nums; letter-spacing: 4px;
-    color: var(--accent-soft); margin-bottom: 8px;
-    position: relative; z-index: 1;
-    transition: transform 0.3s ease;
+    font-size: 44px; font-weight: 800;
+    font-variant-numeric: tabular-nums; letter-spacing: 2px;
+    color: var(--accent-soft);
+    transition: transform 0.2s ease;
+    line-height: 1;
   }
   .timer-display.tick { animation: tick 0.2s ease; }
   @keyframes tick {
     0% { transform: scale(1); }
-    50% { transform: scale(1.06); }
+    50% { transform: scale(1.04); }
     100% { transform: scale(1); }
   }
-  .timer-label { font-size: 14px; opacity: 0.75; margin-bottom: 20px; }
+  .timer-minutes {
+    font-size: 13px;
+    color: rgba(255, 246, 223, 0.7);
+    margin-top: 4px;
+    font-weight: 600;
+  }
+  .timer-reward {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+    font-size: 11px;
+    color: rgba(255, 246, 223, 0.85);
+    position: relative;
+    z-index: 1;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .timer-reward span {
+    display: inline-flex;
+    align-items: center;
+    gap: 3px;
+    background: rgba(255, 246, 223, 0.1);
+    padding: 4px 10px;
+    border-radius: 20px;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+  .timer-label { font-size: 13px; opacity: 0.75; margin-top: 12px; margin-bottom: 14px; position: relative; z-index: 1; text-align: center; padding: 0 10px; }
   .timer-buttons { display: flex; gap: 12px; width: 100%; position: relative; z-index: 1; }
   .timer-buttons .btn { margin-bottom: 0; }
+
+  /* бейдж "быстрый тест" в шапке таймера */
+  .fast-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: linear-gradient(180deg, #ffe08a, #e5b34b);
+    color: #5a3d0a;
+    padding: 6px 14px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-weight: 800;
+    margin-bottom: 12px;
+    box-shadow: 0 3px 0 var(--accent-deep);
+  }
   /* скины */
   .skin-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
   .skin-card {
@@ -795,9 +868,10 @@
     display: flex; justify-content: space-between;
     padding: 6px 0; font-size: 13px; color: var(--text-soft);
     border-bottom: 1px dashed #e8dcc6;
+    gap: 10px;
   }
   .stat-line:last-child { border-bottom: none; }
-  .stat-line b { color: var(--text); font-weight: 800; }
+  .stat-line b { color: var(--text); font-weight: 800; text-align: right; }
   .copy-area {
     width: 100%; min-height: 140px; margin-top: 8px;
     background: var(--card-alt); border: 2px solid #e8dcc6;
@@ -916,6 +990,24 @@
     100% { transform: translateY(-60px) scale(1); opacity: 0; }
   }
 
+  .reward-pop {
+    position: absolute;
+    font-size: 14px;
+    font-weight: 800;
+    color: var(--accent-soft);
+    pointer-events: none;
+    animation: rewardFloat 1.2s ease-out forwards;
+    z-index: 70;
+    will-change: transform, opacity;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+    white-space: nowrap;
+  }
+  @keyframes rewardFloat {
+    0% { transform: translateY(0) scale(0.6); opacity: 0; }
+    20% { opacity: 1; transform: translateY(-6px) scale(1.15); }
+    100% { transform: translateY(-50px) scale(1); opacity: 0; }
+  }
+
   @media (prefers-reduced-motion: reduce) {
     .cat-body, .cat-tail, .cat-eye,
     .pet-bg-sparkles span,
@@ -937,14 +1029,13 @@
       <div class="coins-badge" id="coins-badge">🪙 <span id="coins">0</span></div>
     </div>
 
-    <!-- ЧЕКБОКС БЫСТРОГО ТЕСТА -->
     <div class="fast-toggle-wrap" id="fast-toggle-wrap">
       <div class="fast-toggle-label">
         <span class="fast-toggle-title">⚡ Быстрый тест</span>
-        <span class="fast-toggle-sub" id="fast-toggle-sub">Обычный режим · убывание по часам</span>
+        <span class="fast-toggle-sub" id="fast-toggle-sub">1 сек = 1 минута</span>
       </div>
       <label class="switch">
-        <input type="checkbox" id="fast-mode-checkbox">
+        <input type="checkbox" id="fast-mode-checkbox" checked>
         <span class="slider"></span>
       </label>
     </div>
@@ -1012,7 +1103,7 @@
 
     <button class="btn btn-primary" id="feed-btn">🍚 Покормить (10 🪙)</button>
     <button class="btn btn-joy" id="play-btn">🧶 Поиграть (5 🪙)</button>
-    <button class="btn btn-outline" id="go-timer-btn">📖 Читать 15 минут</button>
+    <button class="btn btn-outline" id="go-timer-btn">📖 Читать</button>
 
     <div class="info-note" style="margin-top: auto;" id="pet-hint">
       💡 Заходи каждый день, корми, пои и играй с питомцем. Если голод и жажда дойдут до 0 — питомец погибнет.
@@ -1029,9 +1120,35 @@
       <div class="coins-badge" id="coins-badge-timer">🪙 <span id="coins-timer">0</span></div>
     </div>
 
+    <div class="fast-badge" id="fast-badge-timer">⚡ 1 сек = 1 минута</div>
+
     <div class="timer-container" id="timer-container">
-      <div class="timer-display" id="timer-display">15:00</div>
+      <div class="timer-ring-wrap">
+        <svg class="timer-ring" viewBox="0 0 220 220">
+          <defs>
+            <linearGradient id="timerGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#f0c250" />
+              <stop offset="100%" stop-color="#e07a5f" />
+            </linearGradient>
+          </defs>
+          <circle class="timer-ring-bg" cx="110" cy="110" r="100"></circle>
+          <circle class="timer-ring-fill" id="timer-ring-fill" cx="110" cy="110" r="100"
+                  stroke-dasharray="628" stroke-dashoffset="628"></circle>
+        </svg>
+        <div class="timer-display-wrap">
+          <div class="timer-display" id="timer-display">00:00</div>
+          <div class="timer-minutes" id="timer-minutes">0 из 60 минут</div>
+        </div>
+      </div>
+
+      <div class="timer-reward">
+        <span>🪙 +1/мин</span>
+        <span>⭐ +1 XP/мин</span>
+        <span>🎁 +50 на 60-й</span>
+      </div>
+
       <div class="timer-label" id="timer-label">Читай, пока питомец ждёт</div>
+
       <div class="timer-buttons">
         <button class="btn" id="start-timer">▶ Старт</button>
         <button class="btn btn-secondary" id="reset-timer">⟲ Сброс</button>
@@ -1039,7 +1156,7 @@
     </div>
 
     <div class="info-note" id="timer-info">
-      Читай 15 минут — получишь 10 монет и +10 XP. XP повышает уровень питомца, за уровень открываются скины.
+      Быстрый тест: 1 реальная секунда = 1 игровая минута. За 60 секунд таймер пройдёт 60 минут, начислит 60 монет и 60 XP, и даст бонус.
     </div>
   </div>
 
@@ -1079,12 +1196,16 @@
 
     <div class="stat-block">
       <h3>⏳ Таймер</h3>
-      <div class="stat-line"><span>Запусков таймера</span><b id="st-timer-starts">0</b></div>
-      <div class="stat-line"><span>Завершено сессий</span><b id="st-timer-completions">0</b></div>
+      <div class="stat-line"><span>Первый запуск (дата и время)</span><b id="st-first-timer-start-at">—</b></div>
       <div class="stat-line"><span>Первый запуск (день после захода)</span><b id="st-first-timer-day">—</b></div>
-      <div class="stat-line"><span>Самый длинный промежуток</span><b id="st-longest-gap">—</b></div>
+      <div class="stat-line"><span>Длительность первого запуска</span><b id="st-first-timer-duration">—</b></div>
+      <div class="stat-line"><span>Запусков таймера</span><b id="st-timer-starts">0</b></div>
+      <div class="stat-line"><span>Завершено сессий (60 мин)</span><b id="st-timer-completions">0</b></div>
+      <div class="stat-line"><span>Бонусов (60 мин) получено</span><b id="st-bonus-count">0</b></div>
+      <div class="stat-line"><span>Всего секунд работы таймера</span><b id="st-total-timer-seconds">0</b></div>
       <div class="stat-line"><span>Всего минут чтения</span><b id="st-total-minutes">0</b></div>
       <div class="stat-line"><span>Сбросов таймера</span><b id="st-timer-resets">0</b></div>
+      <div class="stat-line"><span>Самый длинный промежуток</span><b id="st-longest-gap">—</b></div>
     </div>
 
     <div class="stat-block">
@@ -1099,7 +1220,6 @@
       <div class="stat-line"><span>Вкладка «Статистика»</span><b id="st-nav-stats">0</b></div>
       <div class="stat-line"><span>Выбор скина</span><b id="st-skin-select">0</b></div>
       <div class="stat-line"><span>Закрытий модалки</span><b id="st-modal-close">0</b></div>
-      <div class="stat-line"><span>Включений быстрого теста</span><b id="st-fast-mode-on">0</b></div>
     </div>
 
     <div class="stat-block">
@@ -1144,9 +1264,8 @@
 </div>
 <script>
 (function() {
-  const COOKIE_NAME = 'readingPetState';
+  const COOKIE_NAME = 'readingPetStateFast';
   const COOKIE_MAX_AGE_DAYS = 30;
-  const STORAGE_KEY = COOKIE_NAME;
 
   const ALL_SKINS = [
     { id: 'default', name: 'Обычный',   cls: 'skin-default', level: 0,  color: '#f5a623' },
@@ -1158,36 +1277,33 @@
   ];
 
   const MAX_SKIP_DAYS = 3;
-  const XP_PER_SESSION = 10;
+  const TIMER_MAX_SECONDS = 60 * 60;
+  const XP_PER_MINUTE = 1;
+  const COINS_PER_MINUTE = 1;
+  const XP_BONUS_60MIN = 50;
+  const COINS_BONUS_60MIN = 50;
   const XP_PER_LEVEL = 100;
   const DEATH_GRACE_HOURS = 4;
 
-  const TIMER_SECONDS_NORMAL = 15 * 60;
-  const HUNGER_DRAIN_PER_HOUR = 2;
-  const JOY_DRAIN_PER_HOUR = 1;
-  const TICK_INTERVAL_MS = 60 * 1000;
-
-  const TIMER_SECONDS_FAST = 5;
-  const FAST_DRAIN_PER_SEC = 1;
   const FAST_TICK_MS = 1000;
   const FAST_START_COINS = 1000;
+  const FAST_HUNGER_DRAIN_PER_SEC = 1;
+  const NORMAL_TICK_MS = 60 * 1000;
+  const NORMAL_HUNGER_DRAIN_PER_HOUR = 2;
+  const NORMAL_JOY_DRAIN_PER_HOUR = 1;
+
   const JOY_FEED_BONUS = 10;
   const JOY_PLAY_BONUS = 25;
   const JOY_TIMER_BONUS = 5;
 
-  // ---------- КУКИ: СЕТ/ГЕТ/ДЕЛИТ ----------
+  // ---------- КУКИ ----------
   function setCookie(name, value, days) {
     try {
       const expires = new Date(Date.now() + days * 24 * 60 * 60 * 1000).toUTCString();
-      // SameSite=Lax чтобы кука работала и при переходах, и не блокировалась
-      // Secure не ставим, чтобы работало и на http (локальный сервер), и на https
       document.cookie = name + '=' + encodeURIComponent(value) +
-        '; expires=' + expires +
-        '; path=/' +
-        '; SameSite=Lax';
-    } catch (e) { /* ignore */ }
+        '; expires=' + expires + '; path=/; SameSite=Lax';
+    } catch (e) {}
   }
-
   function getCookie(name) {
     try {
       const match = document.cookie.match(new RegExp('(?:^|; )' + name.replace(/([.*+?^${}()|[\]\\])/g, '\\$1') + '=([^;]*)'));
@@ -1195,22 +1311,12 @@
     } catch (e) { return null; }
   }
 
-  function deleteCookie(name) {
-    try {
-      document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax';
-    } catch (e) {}
-  }
-
-  // ---------- ПРОСИМ БРАУЗЕР НЕ УДАЛЯТЬ ДАННЫЕ ----------
   if (navigator.storage && navigator.storage.persist) {
-    navigator.storage.persist().then(granted => {
-      console.log(granted ? '✅ Хранилище защищено от автоматической очистки' : '⚠️ Браузер не дал гарантий сохранности');
-    }).catch(() => {});
+    navigator.storage.persist().catch(() => {});
   }
 
   // ---------- СОСТОЯНИЕ ----------
   let state = loadState();
-  let fastTickInterval = null;
 
   function defaultState() {
     return {
@@ -1225,71 +1331,98 @@
       firstVisitDate: null,
       totalVisits: 0, daysVisited: 0, daysSkipped: 0,
       maxStreak: 0,
-      firstTimerStartDate: null, firstTimerDayAfterVisit: null,
-      timerStarts: 0, timerCompletions: 0, timerResets: 0,
-      lastTimerCompletionAt: null, longestGapMs: 0,
+      firstTimerStartAt: null,
+      firstTimerDayAfterVisit: null,
+      firstTimerDurationSec: 0,
+      timerStarts: 0,
+      timerCompletions: 0,
+      bonusCount: 0,
+      totalTimerSeconds: 0,
+      timerResets: 0,
+      lastTimerStartAt: null,
+      lastTimerCompletionAt: null,
+      longestGapMs: 0,
       feedClicks: 0, playClicks: 0,
       feedNoCoins: 0, playNoCoins: 0,
       navPet: 0, navTimer: 0, navSkins: 0, navStats: 0,
       skinSelect: 0, modalClose: 0,
       deathCount: 0, reviveCount: 0, xpTotal: 0,
-      fastMode: false,
-      fastModeEverOn: false,
-      fastModeOnCount: 0
+      fastCoinsGiven: false,
+      fastMode: true
     };
   }
 
   function loadState() {
     try {
-      // 1. Пробуем куки
       const raw = getCookie(COOKIE_NAME);
-      if (raw) {
-        const parsed = JSON.parse(raw);
-        return Object.assign(defaultState(), parsed);
-      }
-      // 2. Fallback: если куки пустые, но есть старый localStorage — мигрируем
-      const ls = localStorage.getItem(STORAGE_KEY);
-      if (ls) {
-        const parsed = JSON.parse(ls);
-        const migrated = Object.assign(defaultState(), parsed);
-        // сохраняем в куки и чистим localStorage
-        saveStateToCookie(migrated);
-        try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
-        console.log('🔄 Прогресс перенесён из localStorage в куки');
-        return migrated;
-      }
+      if (raw) return Object.assign(defaultState(), JSON.parse(raw));
       return defaultState();
-    } catch (e) {
-      return defaultState();
-    }
+    } catch (e) { return defaultState(); }
   }
 
   function saveStateToCookie(s) {
-    try {
-      const json = JSON.stringify(s);
-      setCookie(COOKIE_NAME, json, COOKIE_MAX_AGE_DAYS);
-    } catch (e) { /* ignore */ }
+    try { setCookie(COOKIE_NAME, JSON.stringify(s), COOKIE_MAX_AGE_DAYS); } catch (e) {}
   }
-
-  function saveState() {
-    saveStateToCookie(state);
-  }
+  function saveState() { saveStateToCookie(state); }
 
   function todayStr() {
     const d = new Date();
     return d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
   }
+  function nowIso() { return new Date().toISOString(); }
   function daysBetween(a, b) {
     const da = new Date(a + 'T00:00:00');
     const db = new Date(b + 'T00:00:00');
     return Math.round((db - da) / (1000*60*60*24));
   }
-
-  function getTimerSeconds() {
-    return state.fastMode ? TIMER_SECONDS_FAST : TIMER_SECONDS_NORMAL;
+  function formatDuration(sec) {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    if (m >= 60) {
+      const h = Math.floor(m / 60);
+      return h + ' ч ' + (m % 60) + ' мин';
+    }
+    if (m > 0) return m + ' мин ' + s + ' с';
+    return s + ' с';
   }
 
-  // ---------- УБЫВАНИЕ (ОБЫЧНОЕ) ----------
+  // ---------- ТИКИ УБЫВАНИЯ ----------
+  let fastDrainInterval = null;
+  let normalDrainInterval = null;
+
+  function startFastDrain() {
+    if (fastDrainInterval) return;
+    fastDrainInterval = setInterval(() => {
+      if (state.isDead) return;
+      const beforeH = state.hunger, beforeW = state.water, beforeJ = state.joy;
+      state.hunger = Math.max(0, state.hunger - FAST_HUNGER_DRAIN_PER_SEC);
+      state.water = Math.max(0, state.water - FAST_HUNGER_DRAIN_PER_SEC);
+      state.joy = Math.max(0, state.joy - FAST_HUNGER_DRAIN_PER_SEC);
+      if (state.hunger < beforeH) animateDrop('hunger-box', beforeH, state.hunger, false);
+      if (state.water < beforeW) animateDrop('water-box', beforeW, state.water, false);
+      if (state.joy < beforeJ) animateDrop('joy-box', beforeJ, state.joy, true);
+      saveState();
+      updateUI();
+      checkDeath();
+    }, FAST_TICK_MS);
+  }
+  function stopFastDrain() {
+    if (fastDrainInterval) { clearInterval(fastDrainInterval); fastDrainInterval = null; }
+  }
+
+  function startNormalDrain() {
+    if (normalDrainInterval) return;
+    normalDrainInterval = setInterval(() => {
+      if (state.isDead) return;
+      applyHungerDrainNormal();
+      applyJoyDrainNormal();
+      updateUI();
+    }, NORMAL_TICK_MS);
+  }
+  function stopNormalDrain() {
+    if (normalDrainInterval) { clearInterval(normalDrainInterval); normalDrainInterval = null; }
+  }
+
   function applyHungerDrainNormal() {
     if (state.isDead) return;
     const now = Date.now();
@@ -1297,21 +1430,16 @@
       ? new Date(state.lastHungerTickAt).getTime()
       : (state.lastFedAt ? new Date(state.lastFedAt).getTime() : now);
     const elapsedMs = now - lastTick;
-    if (elapsedMs < TICK_INTERVAL_MS) return;
-
+    if (elapsedMs < NORMAL_TICK_MS) return;
     const elapsedHours = elapsedMs / (1000 * 60 * 60);
-    const drain = Math.floor(elapsedHours * HUNGER_DRAIN_PER_HOUR);
+    const drain = Math.floor(elapsedHours * NORMAL_HUNGER_DRAIN_PER_HOUR);
     if (drain <= 0) return;
-
-    const beforeH = state.hunger;
-    const beforeW = state.water;
+    const beforeH = state.hunger, beforeW = state.water;
     state.hunger = Math.max(0, state.hunger - drain);
     state.water = Math.max(0, state.water - drain);
-    state.lastHungerTickAt = new Date(now).toISOString();
-
+    state.lastHungerTickAt = nowIso();
     if (state.hunger < beforeH) animateDrop('hunger-box', beforeH, state.hunger, false);
     if (state.water < beforeW) animateDrop('water-box', beforeW, state.water, false);
-
     saveState();
     checkDeath();
   }
@@ -1323,72 +1451,29 @@
       ? new Date(state.lastJoyTickAt).getTime()
       : (state.lastPlayedAt ? new Date(state.lastPlayedAt).getTime() : now);
     const elapsedMs = now - lastTick;
-    if (elapsedMs < TICK_INTERVAL_MS) return;
-
+    if (elapsedMs < NORMAL_TICK_MS) return;
     const elapsedHours = elapsedMs / (1000 * 60 * 60);
-    const drain = Math.floor(elapsedHours * JOY_DRAIN_PER_HOUR);
+    const drain = Math.floor(elapsedHours * NORMAL_JOY_DRAIN_PER_HOUR);
     if (drain <= 0) return;
-
     const beforeJ = state.joy;
     state.joy = Math.max(0, state.joy - drain);
-    state.lastJoyTickAt = new Date(now).toISOString();
-
+    state.lastJoyTickAt = nowIso();
     if (state.joy < beforeJ) animateDrop('joy-box', beforeJ, state.joy, true);
     saveState();
-  }
-
-  setInterval(() => {
-    if (state.isDead || state.fastMode) return;
-    applyHungerDrainNormal();
-    applyJoyDrainNormal();
-    updateUI();
-  }, TICK_INTERVAL_MS);
-
-  // ---------- БЫСТРЫЙ ТИК ----------
-  function startFastTick() {
-    if (fastTickInterval) return;
-    fastTickInterval = setInterval(() => {
-      if (state.isDead) return;
-      if (!state.fastMode) return;
-
-      const beforeH = state.hunger;
-      const beforeW = state.water;
-      const beforeJ = state.joy;
-
-      state.hunger = Math.max(0, state.hunger - FAST_DRAIN_PER_SEC);
-      state.water = Math.max(0, state.water - FAST_DRAIN_PER_SEC);
-      state.joy = Math.max(0, state.joy - FAST_DRAIN_PER_SEC);
-
-      if (state.hunger < beforeH) animateDrop('hunger-box', beforeH, state.hunger, false);
-      if (state.water < beforeW) animateDrop('water-box', beforeW, state.water, false);
-      if (state.joy < beforeJ) animateDrop('joy-box', beforeJ, state.joy, true);
-
-      saveState();
-      updateUI();
-      checkDeathFast();
-    }, FAST_TICK_MS);
-  }
-  function stopFastTick() {
-    if (fastTickInterval) {
-      clearInterval(fastTickInterval);
-      fastTickInterval = null;
-    }
   }
 
   function checkDeath() {
     if (state.isDead) return;
     if (state.hunger <= 0 && state.water <= 0) {
-      const lastFed = state.lastFedAt ? new Date(state.lastFedAt).getTime() : 0;
-      const hours = lastFed ? (Date.now() - lastFed) / (1000*60*60) : 999;
-      if (hours >= DEATH_GRACE_HOURS) {
-        killPet(`Питомец погиб: голод и вода на нуле, не кормили ${Math.round(hours)} ч.`);
+      if (state.fastMode) {
+        killPet('Питомец погиб: голод и вода на нуле (быстрый тест).');
+      } else {
+        const lastFed = state.lastFedAt ? new Date(state.lastFedAt).getTime() : 0;
+        const hours = lastFed ? (Date.now() - lastFed) / (1000*60*60) : 999;
+        if (hours >= DEATH_GRACE_HOURS) {
+          killPet(`Питомец погиб: голод и вода на нуле, не кормили ${Math.round(hours)} ч.`);
+        }
       }
-    }
-  }
-  function checkDeathFast() {
-    if (state.isDead) return;
-    if (state.hunger <= 0 && state.water <= 0) {
-      killPet('Питомец погиб: голод и вода на нуле (быстрый тест).');
     }
   }
 
@@ -1398,13 +1483,11 @@
     if (!box) return;
     box.classList.add('drop');
     setTimeout(() => box.classList.remove('drop'), 500);
-
     const valEl = box.querySelector('.stat-value');
     if (valEl) {
       valEl.classList.add('changing');
       setTimeout(() => valEl.classList.remove('changing'), 400);
     }
-
     const rect = box.getBoundingClientRect();
     const appRect = document.getElementById('app').getBoundingClientRect();
     const diff = oldVal - newVal;
@@ -1450,6 +1533,17 @@
       fxLayer.appendChild(el);
       setTimeout(() => el.remove(), 1800);
     }
+  }
+
+  function spawnRewardPop(text, x, y) {
+    const el = document.createElement('div');
+    el.className = 'reward-pop';
+    el.textContent = text;
+    el.style.left = x + 'px';
+    el.style.top = y + 'px';
+    el.style.transform = 'translateX(-50%)';
+    fxLayer.appendChild(el);
+    setTimeout(() => el.remove(), 1300);
   }
 
   function getPetCenter() {
@@ -1509,15 +1603,15 @@
     }
     setTimeout(() => updateUI(), 500);
   }
+
   function revivePet() {
     state.isDead = false; state.deathDate = null; state.deathReason = null;
     state.hunger = 40; state.water = 40; state.joy = 40; state.streak = 1;
     state.lastVisitDate = todayStr();
-    const nowIso = new Date().toISOString();
-    state.lastFedAt = nowIso;
-    state.lastPlayedAt = nowIso;
-    state.lastHungerTickAt = nowIso;
-    state.lastJoyTickAt = nowIso;
+    state.lastFedAt = nowIso();
+    state.lastPlayedAt = nowIso();
+    state.lastHungerTickAt = nowIso();
+    state.lastJoyTickAt = nowIso();
     state.reviveCount += 1;
     saveState();
   }
@@ -1535,15 +1629,14 @@
       state.maxStreak = 1;
       state.daysVisited = 1;
       state.totalVisits = 1;
-      const nowIso = new Date().toISOString();
-      state.lastHungerTickAt = nowIso;
-      state.lastJoyTickAt = nowIso;
-      state.lastFedAt = nowIso;
-      state.lastPlayedAt = nowIso;
+      state.lastHungerTickAt = nowIso();
+      state.lastJoyTickAt = nowIso();
+      state.lastFedAt = nowIso();
+      state.lastPlayedAt = nowIso();
       if (!state.unlockedSkins.includes('sunset')) state.unlockedSkins.push('sunset');
       message = {
         title: '🐣 Добро пожаловать!',
-        text: 'Это твой котёнок Читайка. Он голоден и хочет играть. Прочитай 15 минут, получи монеты, покорми и поиграй с ним. Заходи каждый день — иначе он погибнет.\n\n🎮 Читайка живёт только в этом приложении. Но привычка читать — настоящая.'
+        text: 'Это твой котёнок Читайка. Быстрый тест: 1 реальная секунда = 1 игровая минута. Запусти таймер и читай. Заходи каждый день — иначе он погибнет.\n\n🎮 Читайка живёт только в этом приложении. Но привычка читать — настоящая.'
       };
       saveState();
       return { message, isDead: false };
@@ -1664,7 +1757,7 @@
       hint.textContent = '💜 Котёнок очень скучает. Поиграй с ним!';
     } else if (state.hunger < 30 || state.water < 30) {
       hint.className = 'info-note danger';
-      hint.textContent = '⚠️ Котёнок голоден. Прочитай 15 минут и покорми.';
+      hint.textContent = '⚠️ Котёнок голоден. Запусти таймер и покорми.';
     } else if (state.joy < 30) {
       hint.className = 'info-note joy';
       hint.textContent = '💜 Котёнок хочет играть. Поиграй с ним!';
@@ -1681,9 +1774,7 @@
     const line = $('status-line');
     line.classList.remove('happy', 'warn', 'joy', 'dead');
     let text = '', cls = '';
-
     const h = state.hunger, w = state.water, j = state.joy;
-
     if (h <= 0 && w <= 0) { text = '☠️ Котёнок при смерти'; cls = 'dead'; }
     else if (h <= 0 || w <= 0) { text = '🚨 Котёнок в опасности — срочно покорми и напои!'; cls = 'warn'; }
     else if (h < 20 || w < 20) { text = '🍖 Котёнок очень голоден или хочет пить'; cls = 'warn'; }
@@ -1693,7 +1784,6 @@
     else if (h > 80 && w > 80 && j > 80) { text = '✨ Котёнок счастлив!'; cls = 'happy'; }
     else if (j > 70) { text = '😊 Котёнок доволен и играет'; cls = 'happy'; }
     else { text = '😌 Котёнок сыт и спокоен'; cls = ''; }
-
     line.textContent = text;
     if (cls) line.classList.add(cls);
   }
@@ -1764,12 +1854,24 @@
     $('st-max-streak').textContent = state.maxStreak;
     $('st-current-streak').textContent = state.streak;
 
+    if (state.firstTimerStartAt) {
+      const d = new Date(state.firstTimerStartAt);
+      const dateStr = d.getFullYear() + '-' + String(d.getMonth()+1).padStart(2,'0') + '-' + String(d.getDate()).padStart(2,'0');
+      const timeStr = String(d.getHours()).padStart(2,'0') + ':' + String(d.getMinutes()).padStart(2,'0');
+      $('st-first-timer-start-at').textContent = dateStr + ' ' + timeStr;
+    } else {
+      $('st-first-timer-start-at').textContent = '—';
+    }
+    $('st-first-timer-day').textContent = state.firstTimerDayAfterVisit !== null ? state.firstTimerDayAfterVisit : '—';
+    $('st-first-timer-duration').textContent = state.firstTimerDurationSec > 0 ? formatDuration(state.firstTimerDurationSec) : '—';
+
     $('st-timer-starts').textContent = state.timerStarts;
     $('st-timer-completions').textContent = state.timerCompletions;
-    $('st-first-timer-day').textContent = state.firstTimerDayAfterVisit !== null ? state.firstTimerDayAfterVisit : '—';
-    $('st-longest-gap').textContent = state.longestGapMs > 0 ? formatDuration(state.longestGapMs) : '—';
+    $('st-bonus-count').textContent = state.bonusCount;
+    $('st-total-timer-seconds').textContent = formatDuration(state.totalTimerSeconds);
     $('st-total-minutes').textContent = state.totalMinutes;
     $('st-timer-resets').textContent = state.timerResets;
+    $('st-longest-gap').textContent = state.longestGapMs > 0 ? formatDuration(Math.floor(state.longestGapMs / 1000)) : '—';
 
     $('st-feed-clicks').textContent = state.feedClicks;
     $('st-play-clicks').textContent = state.playClicks;
@@ -1781,20 +1883,12 @@
     $('st-nav-stats').textContent = state.navStats;
     $('st-skin-select').textContent = state.skinSelect;
     $('st-modal-close').textContent = state.modalClose;
-    $('st-fast-mode-on').textContent = state.fastModeOnCount;
 
     $('st-death-count').textContent = state.deathCount;
     $('st-revive-count').textContent = state.reviveCount;
     $('st-skins-unlocked').textContent = state.unlockedSkins.length;
     $('st-xp-total').textContent = state.xpTotal;
     $('st-level').textContent = state.level;
-  }
-
-  function formatDuration(ms) {
-    const h = Math.floor(ms / (1000*60*60));
-    const m = Math.floor((ms % (1000*60*60)) / (1000*60));
-    if (h > 0) return h + ' ч ' + m + ' мин';
-    return m + ' мин';
   }
 
   function buildStatsString() {
@@ -1805,12 +1899,16 @@
       'days_skipped:' + state.daysSkipped,
       'max_streak:' + state.maxStreak,
       'current_streak:' + state.streak,
+      'first_timer_start_at:' + (state.firstTimerStartAt || 'none'),
+      'first_timer_day_after_visit:' + (state.firstTimerDayAfterVisit !== null ? state.firstTimerDayAfterVisit : 'none'),
+      'first_timer_duration_sec:' + state.firstTimerDurationSec,
       'timer_starts:' + state.timerStarts,
       'timer_completions:' + state.timerCompletions,
-      'timer_resets:' + state.timerResets,
-      'first_timer_day_after_visit:' + (state.firstTimerDayAfterVisit !== null ? state.firstTimerDayAfterVisit : 'none'),
-      'longest_gap_hours:' + (state.longestGapMs > 0 ? (state.longestGapMs / (1000*60*60)).toFixed(2) : '0'),
+      'bonus_count:' + state.bonusCount,
+      'total_timer_seconds:' + state.totalTimerSeconds,
       'total_minutes:' + state.totalMinutes,
+      'timer_resets:' + state.timerResets,
+      'longest_gap_hours:' + (state.longestGapMs > 0 ? (state.longestGapMs / (1000*60*60)).toFixed(2) : '0'),
       'feed_clicks:' + state.feedClicks,
       'play_clicks:' + state.playClicks,
       'feed_no_coins:' + state.feedNoCoins,
@@ -1821,7 +1919,6 @@
       'nav_stats:' + state.navStats,
       'skin_select:' + state.skinSelect,
       'modal_close:' + state.modalClose,
-      'fast_mode_on:' + state.fastModeOnCount,
       'death_count:' + state.deathCount,
       'revive_count:' + state.reviveCount,
       'skins_unlocked:' + state.unlockedSkins.length,
@@ -1835,7 +1932,7 @@
   function showToast(text) {
     const t = $('toast');
     t.textContent = text;
-        t.classList.add('show');
+    t.classList.add('show');
     clearTimeout(toastTimer);
     toastTimer = setTimeout(() => t.classList.remove('show'), 2200);
   }
@@ -1848,59 +1945,6 @@
     state.modalClose += 1;
     saveState();
     $('modal').classList.remove('show');
-  });
-
-  // ---------- ЧЕКБОКС БЫСТРОГО ТЕСТА ----------
-  function applyFastModeUI() {
-    const wrap = $('fast-toggle-wrap');
-    const sub = $('fast-toggle-sub');
-    const cb = $('fast-mode-checkbox');
-    if (state.fastMode) {
-      wrap.classList.add('on');
-      sub.textContent = '⚡ −1 в секунду · таймер 5 сек · +1000 монет';
-      cb.checked = true;
-      document.body.classList.add('fast-mode');
-    } else {
-      wrap.classList.remove('on');
-      sub.textContent = 'Обычный режим · убывание по часам';
-      cb.checked = false;
-      document.body.classList.remove('fast-mode');
-    }
-    updateTimerDisplay();
-    $('timer-label').textContent = state.fastMode ? 'Быстрый тест: 5 секунд' : 'Читай, пока питомец ждёт';
-    $('timer-info').textContent = state.fastMode
-      ? 'Быстрый тест: 5 секунд = +10 монет, +10 XP, +5 радости.'
-      : 'Читай 15 минут — получишь 10 монет и +10 XP. XP повышает уровень питомца, за уровень открываются скины.';
-  }
-
-  $('fast-mode-checkbox').addEventListener('change', (e) => {
-    state.fastMode = e.target.checked;
-    if (state.fastMode) {
-      state.fastModeOnCount += 1;
-      if (!state.fastModeEverOn) {
-        state.coins += FAST_START_COINS;
-        state.fastModeEverOn = true;
-        showToast('⚡ Быстрый тест включён! +' + FAST_START_COINS + ' монет');
-      } else {
-        showToast('⚡ Быстрый тест включён');
-      }
-      if (timerRunning) { clearInterval(timerInterval); timerRunning = false; }
-      timerSeconds = TIMER_SECONDS_FAST;
-      $('start-timer').textContent = '▶ Старт';
-      $('timer-container').classList.remove('running');
-      startFastTick();
-    } else {
-      stopFastTick();
-      if (timerRunning) { clearInterval(timerInterval); timerRunning = false; }
-      timerSeconds = TIMER_SECONDS_NORMAL;
-      $('start-timer').textContent = '▶ Старт';
-      $('timer-container').classList.remove('running');
-      showToast('Обычный режим включён');
-    }
-    saveState();
-    applyFastModeUI();
-    updateUI();
-    updateTimerDisplay();
   });
 
   // ---------- НАВИГАЦИЯ ----------
@@ -1944,7 +1988,7 @@
     if (state.coins < 10) {
       state.feedNoCoins += 1;
       saveState();
-      showToast('Недостаточно монет! Прочитай ' + (state.fastMode ? '5 секунд' : '15 минут') + '.');
+      showToast('Недостаточно монет! Запусти таймер.');
       const c = getPetCenter();
       spawnFloatingEmojis('💤', 2, c.x, c.y);
       return;
@@ -1953,7 +1997,7 @@
     state.hunger = Math.min(100, state.hunger + 20);
     state.water = Math.min(100, state.water + 10);
     state.joy = Math.min(100, state.joy + JOY_FEED_BONUS);
-    state.lastFedAt = new Date().toISOString();
+    state.lastFedAt = nowIso();
     saveState(); updateUI();
     bumpCoins();
     showToast('🍚 Котёнок накормлен!');
@@ -1976,12 +2020,12 @@
     if (state.coins < 5) {
       state.playNoCoins += 1;
       saveState();
-      showToast('Недостаточно монет! Прочитай ' + (state.fastMode ? '5 секунд' : '15 минут') + '.');
+      showToast('Недостаточно монет! Запусти таймер.');
       return;
     }
     state.coins -= 5;
     state.joy = Math.min(100, state.joy + JOY_PLAY_BONUS);
-    state.lastPlayedAt = new Date().toISOString();
+    state.lastPlayedAt = nowIso();
     saveState(); updateUI();
     bumpCoins();
     showToast('🧶 Котёнок доволен игрой!');
@@ -2032,99 +2076,229 @@
 
   // ---------- ТАЙМЕР ----------
   let timerInterval = null;
-  let timerSeconds = getTimerSeconds();
+  let gameSeconds = 0;
   let timerRunning = false;
+  let timerSessionStartSec = 0;
+  let lastAwardedMinute = 0;
+
+  const RING_CIRCUMFERENCE = 2 * Math.PI * 100;
+
+  function formatGameTime(sec) {
+    const m = Math.floor(sec / 60);
+    const s = sec % 60;
+    return String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+  }
 
   function updateTimerDisplay() {
-    const m = Math.floor(timerSeconds / 60);
-    const s = timerSeconds % 60;
-    $('timer-display').textContent = String(m).padStart(2,'0') + ':' + String(s).padStart(2,'0');
+    $('timer-display').textContent = formatGameTime(gameSeconds);
+    const mins = Math.floor(gameSeconds / 60);
+    $('timer-minutes').textContent = mins + ' из 60 минут';
+    const progress = Math.min(1, gameSeconds / TIMER_MAX_SECONDS);
+    const offset = RING_CIRCUMFERENCE * (1 - progress);
+    const ring = $('timer-ring-fill');
+    if (ring) ring.style.strokeDashoffset = offset;
   }
 
   function startTimer() {
     if (timerRunning || state.isDead) return;
+    if (gameSeconds >= TIMER_MAX_SECONDS) return;
+
     timerRunning = true;
     state.timerStarts += 1;
-    if (!state.firstTimerStartDate) {
-      state.firstTimerStartDate = todayStr();
+
+    if (!state.firstTimerStartAt) {
+      state.firstTimerStartAt = nowIso();
       if (state.firstVisitDate) {
         state.firstTimerDayAfterVisit = daysBetween(state.firstVisitDate, todayStr());
       }
     }
+
+    // считаем промежуток с предыдущего запуска таймера
+    if (state.lastTimerStartAt) {
+      const now = Date.now();
+      const gap = now - new Date(state.lastTimerStartAt).getTime();
+      if (gap > state.longestGapMs) state.longestGapMs = gap;
+    }
+    state.lastTimerStartAt = nowIso();
+
+    timerSessionStartSec = gameSeconds;
+    lastAwardedMinute = Math.floor(gameSeconds / 60);
+
     saveState(); updateUI();
+
     $('start-timer').textContent = '⏸ Пауза';
     $('timer-container').classList.add('running');
+
     timerInterval = setInterval(() => {
-      if (timerSeconds > 0) {
-        timerSeconds--;
+      if (gameSeconds < TIMER_MAX_SECONDS) {
+        const step = state.fastMode ? 60 : 1;
+        gameSeconds += step;
+        state.totalTimerSeconds += step;
+
+        const currentMinute = Math.floor(gameSeconds / 60);
+        if (currentMinute > lastAwardedMinute) {
+          const delta = currentMinute - lastAwardedMinute;
+          state.coins += COINS_PER_MINUTE * delta;
+          addXp(XP_PER_MINUTE * delta);
+          lastAwardedMinute = currentMinute;
+
+          const c = getPetCenter();
+          spawnRewardPop('+' + (COINS_PER_MINUTE * delta) + ' 🪙  +' + (XP_PER_MINUTE * delta) + ' XP', c.x, c.y - 40);
+          spawnFloatingEmojis('🪙', 2, c.x, c.y);
+          bumpCoins();
+        }
+
         updateTimerDisplay();
+        updateUI();
         const disp = $('timer-display');
         disp.classList.add('tick');
         setTimeout(() => disp.classList.remove('tick'), 200);
-      } else {
-        clearInterval(timerInterval);
-        timerRunning = false;
-        $('start-timer').textContent = '▶ Старт';
-        $('timer-container').classList.remove('running');
-        finishTimer();
+
+        if (gameSeconds >= TIMER_MAX_SECONDS) {
+          finishHourBonus();
+        }
       }
-    }, 1000);
+    }, FAST_TICK_MS);
   }
 
   function pauseTimer() {
     if (!timerRunning) return;
     clearInterval(timerInterval);
     timerRunning = false;
-    $('start-timer').textContent = '▶ Старт';
+    $('start-timer').textContent = '▶ Продолжить';
     $('timer-container').classList.remove('running');
+
+    if (!state.firstTimerDurationSec && timerSessionStartSec !== null) {
+      const dur = gameSeconds - timerSessionStartSec;
+      if (dur > 0) state.firstTimerDurationSec = dur;
+    }
+
+    saveState(); updateUI();
   }
 
   function resetTimer() {
     if (timerRunning) { clearInterval(timerInterval); timerRunning = false; }
     state.timerResets += 1;
-    timerSeconds = getTimerSeconds();
+    gameSeconds = 0;
+    timerSessionStartSec = 0;
+    lastAwardedMinute = 0;
     $('start-timer').textContent = '▶ Старт';
     $('timer-container').classList.remove('running');
     saveState(); updateTimerDisplay();
   }
 
-  function finishTimer() {
-    state.timerCompletions += 1;
-    const now = Date.now();
-    if (state.lastTimerCompletionAt) {
-      const gap = now - new Date(state.lastTimerCompletionAt).getTime();
-      if (gap > state.longestGapMs) state.longestGapMs = gap;
-    }
-    state.lastTimerCompletionAt = new Date(now).toISOString();
+  function finishHourBonus() {
+    clearInterval(timerInterval);
+    timerRunning = false;
+    $('start-timer').textContent = '▶ Старт';
+    $('timer-container').classList.remove('running');
 
-    state.coins += 10;
-    state.totalMinutes += state.fastMode ? 0 : 15;
-    if (!state.fastMode && state.totalMinutes % 60 < 15) state.booksRead += 1;
+    state.timerCompletions += 1;
+    state.bonusCount += 1;
+    state.coins += COINS_BONUS_60MIN;
+    addXp(XP_BONUS_60MIN);
     state.joy = Math.min(100, state.joy + JOY_TIMER_BONUS);
-    addXp(XP_PER_SESSION);
-    saveState(); updateUI();
-    bumpCoins();
-    showToast('✅ +10 🪙, +10 XP и +' + JOY_TIMER_BONUS + ' радости за чтение!');
+
+    if (!state.firstTimerDurationSec) {
+      state.firstTimerDurationSec = TIMER_MAX_SECONDS;
+    }
+
+    state.lastTimerCompletionAt = nowIso();
+
+    saveState(); updateUI(); bumpCoins();
+
     const c = getPetCenter();
-    spawnConfetti(25, c.x, c.y);
-    spawnFloatingEmojis('⭐', 5, c.x, c.y);
-    spawnFloatingEmojis('💜', 2, c.x, c.y);
-    timerSeconds = getTimerSeconds();
-    updateTimerDisplay();
+    spawnConfetti(80, c.x, c.y);
+    spawnFloatingEmojis('🎉', 8, c.x, c.y);
+    spawnFloatingEmojis('⭐', 8, c.x, c.y);
+    spawnRewardPop('🎁 +' + COINS_BONUS_60MIN + ' 🪙  +' + XP_BONUS_60MIN + ' XP', c.x, c.y - 40);
+
+    showToast('🎉 Час прочитан! Бонус: +' + COINS_BONUS_60MIN + ' 🪙 и +' + XP_BONUS_60MIN + ' XP');
+
+    setTimeout(() => {
+      gameSeconds = 0;
+      lastAwardedMinute = 0;
+      updateTimerDisplay();
+      $('start-timer').textContent = '▶ Старт';
+    }, 1500);
   }
 
   $('start-timer').addEventListener('click', () => { timerRunning ? pauseTimer() : startTimer(); });
   $('reset-timer').addEventListener('click', resetTimer);
 
+  // ---------- UI ДЛЯ ЧЕКБОКСА ----------
+  function applyFastModeUI() {
+    const wrap = $('fast-toggle-wrap');
+    const sub = $('fast-toggle-sub');
+    const cb = $('fast-mode-checkbox');
+    if (!wrap || !cb) return;
+    if (state.fastMode) {
+      wrap.classList.add('on');
+      if (sub) sub.textContent = '1 сек = 1 минута';
+      cb.checked = true;
+    } else {
+      wrap.classList.remove('on');
+      if (sub) sub.textContent = 'Обычный режим · по часам';
+      cb.checked = false;
+    }
+    const timerLabel = $('timer-label');
+    if (timerLabel) {
+      timerLabel.textContent = state.fastMode ? 'Быстрый тест: 1 сек = 1 минута' : 'Читай, пока питомец ждёт';
+    }
+    const timerInfo = $('timer-info');
+    if (timerInfo) {
+      timerInfo.textContent = state.fastMode
+        ? 'Быстрый тест: 1 реальная секунда = 1 игровая минута. За 60 секунд таймер пройдёт 60 минут, начислит 60 монет и 60 XP, и даст бонус.'
+        : 'Обычный режим: таймер идёт по реальным секундам. Каждую минуту +1 монета и +1 XP. На 60-й минуте — бонус.';
+    }
+    const fastBadge = $('fast-badge-timer');
+    if (fastBadge) {
+      fastBadge.style.display = state.fastMode ? 'inline-flex' : 'none';
+    }
+  }
+
+  const fastCb = $('fast-mode-checkbox');
+  if (fastCb) {
+    fastCb.addEventListener('change', (e) => {
+      state.fastMode = e.target.checked;
+      if (state.fastMode) {
+        stopNormalDrain();
+        startFastDrain();
+        showToast('⚡ Быстрый тест включён');
+      } else {
+        stopFastDrain();
+        startNormalDrain();
+        showToast('Обычный режим включён');
+      }
+      if (timerRunning) { clearInterval(timerInterval); timerRunning = false; }
+      gameSeconds = 0;
+      lastAwardedMinute = 0;
+      $('start-timer').textContent = '▶ Старт';
+      $('timer-container').classList.remove('running');
+      updateTimerDisplay();
+      saveState();
+      applyFastModeUI();
+      updateUI();
+    });
+  }
+
   // ---------- ИНИЦИАЛИЗАЦИЯ ----------
   function init() {
+    if (!state.fastCoinsGiven) {
+      state.coins += FAST_START_COINS;
+      state.fastCoinsGiven = true;
+      saveState();
+      setTimeout(() => showToast('⚡ Быстрый тест: +' + FAST_START_COINS + ' монет на старте'), 500);
+    }
+
     const result = processDailyVisit();
 
-    if (!state.fastMode) {
-      applyHungerDrainNormal();
-      applyJoyDrainNormal();
+    applyFastModeUI();
+
+    if (state.fastMode) {
+      startFastDrain();
     } else {
-      startFastTick();
+      startNormalDrain();
     }
 
     if (result.isDead) {
@@ -2133,7 +2307,6 @@
     }
 
     updateUI();
-    applyFastModeUI();
     updateTimerDisplay();
 
     if (result.message) {
