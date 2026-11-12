@@ -2293,17 +2293,18 @@
 
     const result = processDailyVisit();
 
+    // если питомец мёртв — сразу показываем экран смерти и выходим
+    if (result.isDead) {
+      showDeathScreen();
+      return;
+    }
+
     applyFastModeUI();
 
     if (state.fastMode) {
       startFastDrain();
     } else {
       startNormalDrain();
-    }
-
-    if (result.isDead) {
-      updateUI();
-      return;
     }
 
     updateUI();
