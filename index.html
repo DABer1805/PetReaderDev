@@ -1609,6 +1609,12 @@
       cat.classList.add('shake');
       setTimeout(() => cat.classList.remove('shake'), 500);
     }
+
+    setTimeout(() => {
+      if (!document.getElementById('screen-death')) {
+        showDeathScreen();
+      }
+    }, 500);
   }
 
   function revivePet() {
