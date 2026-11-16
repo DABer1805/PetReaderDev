@@ -62,6 +62,14 @@
   }
   .screen.active { display: flex; }
 
+  #screen-death {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
   .header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
   .header h1 { font-size: 22px; color: var(--text); font-weight: 800; letter-spacing: -0.3px; }
   .coins-badge {
@@ -1601,7 +1609,6 @@
       cat.classList.add('shake');
       setTimeout(() => cat.classList.remove('shake'), 500);
     }
-    setTimeout(() => updateUI(), 500);
   }
 
   function revivePet() {
@@ -1702,7 +1709,12 @@
   }
 
   function updateUI() {
-    if (state.isDead) { showDeathScreen(); return; }
+    if (state.isDead) {
+      if (!document.getElementById('screen-death')) {
+        showDeathScreen();
+      }
+      return;
+    }
     coinsEls.forEach(el => el.textContent = state.coins);
     $('streak').textContent = state.streak;
     $('today-date').textContent = todayStr().slice(5);
@@ -1789,28 +1801,46 @@
   }
 
   function showDeathScreen() {
-    const app = $('app');
-    document.querySelectorAll('.screen').forEach(s => s.style.display = 'none');
-    let deathScreen = document.getElementById('screen-death');
-    if (!deathScreen) {
-      deathScreen = document.createElement('div');
-      deathScreen.id = 'screen-death';
-      deathScreen.className = 'screen active';
-      deathScreen.style.display = 'flex';
-      deathScreen.innerHTML = `
-        <div class="death-screen">
-          <h2>💔 Котёнок погиб</h2>
-          <p id="death-reason">Ты не заходил слишком долго.</p>
-          <p style="color:#7e735f; font-size:13px;">Уровень и часть монет сгорели. Скины остались — это несгораемая сумма.</p>
-          <button class="btn btn-primary" id="revive-btn" style="margin-top:20px;">🐣 Начать заново</button>
-        </div>
-      `;
-      const nav = document.querySelector('.nav');
-      app.insertBefore(deathScreen, nav);
-      document.getElementById('revive-btn').addEventListener('click', () => {
-        revivePet(); deathScreen.remove(); location.reload();
-      });
+    // если экран смерти уже есть — просто обновляем текст и выходим
+    if (document.getElementById('screen-death')) {
+      const reason = document.getElementById('death-reason');
+      if (reason) reason.textContent = state.deathReason || 'Питомец погиб.';
+      return;
     }
+
+    const app = $('app');
+
+    // прячем все экраны через класс, снимаем инлайн-стили
+    document.querySelectorAll('.screen').forEach(s => {
+      s.classList.remove('active');
+      s.style.display = '';
+    });
+
+    const deathScreen = document.createElement('div');
+    deathScreen.id = 'screen-death';
+    deathScreen.className = 'screen active';
+    deathScreen.innerHTML = `
+      <div class="death-screen">
+        <h2>💔 Котёнок погиб</h2>
+        <p id="death-reason">Ты не заходил слишком долго.</p>
+        <p style="color:#7e735f; font-size:13px;">Уровень и часть монет сгорели. Скины остались — это несгораемая сумма.</p>
+        <button class="btn btn-primary" id="revive-btn" style="margin-top:20px;">🐣 Начать заново</button>
+      </div>
+    `;
+
+    const nav = document.querySelector('.nav');
+    if (nav && nav.parentNode === app) {
+      app.insertBefore(deathScreen, nav);
+    } else {
+      app.appendChild(deathScreen);
+    }
+
+    document.getElementById('revive-btn').addEventListener('click', () => {
+      revivePet();
+      deathScreen.remove();
+      location.reload();
+    });
+
     document.getElementById('death-reason').textContent = state.deathReason || 'Питомец погиб.';
   }
 
